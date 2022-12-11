@@ -20,7 +20,7 @@ import java.util.Queue;
 public class Main {
     private static final int GAME_SIZE = 4;
     private static final String HOST_LOCATION = "230.0.0.0";
-    private static final String TARGET_LOCATION = "240.0.0.0";
+    private static final String TARGET_LOCATION = "230.0.0.1";
     private static boolean RUNNING = true;
     
     public static void main(String[] args) {
