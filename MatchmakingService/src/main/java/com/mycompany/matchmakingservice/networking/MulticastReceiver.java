@@ -28,7 +28,7 @@ public class MulticastReceiver extends Thread {
             if ("end".equals(received)) {
                 break;
             } else if (received.contains(".")) {
-                break;
+                continue;
             }
             System.out.println(received);
             UserBuffer.getInstance().add(received);
