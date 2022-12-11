@@ -36,6 +36,9 @@ public class Main {
             if(list.size() >= GAME_SIZE) {
                 try {
                     publisher.send(TARGET_LOCATION, HOST_LOCATION);
+                    
+                    System.out.println("Sent game to " + TARGET_LOCATION);
+                    
                     for(int i=0;i<GAME_SIZE;i++) list.poll();
                     
                 } catch (IOException e) {
