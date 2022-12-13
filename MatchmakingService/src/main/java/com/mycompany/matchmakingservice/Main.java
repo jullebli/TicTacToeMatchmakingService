@@ -35,11 +35,12 @@ public class Main {
         while(RUNNING) {
             if(list.size() >= GAME_SIZE) {
                 try {
-                    publisher.send(TARGET_LOCATION, HOST_LOCATION);
+                    String message = TARGET_LOCATION;
+                    for(int i=0;i<GAME_SIZE;i++) message += ";" + list.poll();
+                    
+                    publisher.send(message, HOST_LOCATION);
                     
                     System.out.println("Sent game to " + TARGET_LOCATION);
-                    
-                    for(int i=0;i<GAME_SIZE;i++) list.poll();
                     
                 } catch (IOException e) {
                     System.out.println(e);
