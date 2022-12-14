@@ -27,11 +27,10 @@ public class MulticastReceiver extends Thread {
               packet.getData(), 0, packet.getLength());
             if ("end".equals(received)) {
                 break;
-            } else if (received.contains(".")) {
-                continue;
+            } else if (received.length() == 10 && !received.contains(",")) {
+                System.out.println(received);
+                UserBuffer.getInstance().add(received);
             }
-            System.out.println(received);
-            UserBuffer.getInstance().add(received);
         }
         socket.leaveGroup(group);
         socket.close();

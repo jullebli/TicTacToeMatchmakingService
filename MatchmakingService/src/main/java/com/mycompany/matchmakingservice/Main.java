@@ -36,7 +36,7 @@ public class Main {
             if(list.size() >= GAME_SIZE) {
                 try {
                     String message = TARGET_LOCATION;
-                    for(int i=0;i<GAME_SIZE;i++) message += ";" + list.poll();
+                    for(int i=0;i<GAME_SIZE;i++) message += "," + list.poll();
                     
                     publisher.send(message, HOST_LOCATION);
                     
