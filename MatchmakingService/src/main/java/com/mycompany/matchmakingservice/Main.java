@@ -39,7 +39,7 @@ public class Main {
                     for(int i=0;i<GAME_SIZE;i++) message += ";" + list.poll();
                     
                     publisher.send(message, HOST_LOCATION);
-                    
+                    //here should send to every needed socket the multicastIP
                     System.out.println("Sent game to " + TARGET_LOCATION);
                     
                 } catch (IOException e) {
