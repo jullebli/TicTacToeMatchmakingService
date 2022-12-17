@@ -18,17 +18,17 @@ import java.util.Queue;
  * @author bergmjul
  */
 public class Main {
-    private static final int GAME_SIZE = 4;
+    private static final int GAME_SIZE = 2;
     private static final String HOST_LOCATION = "230.0.0.0";
     private static final String TARGET_LOCATION = "230.0.0.1";
     private static boolean RUNNING = true;
     
     public static void main(String[] args) {
         
-        MulticastReceiver receiver = new MulticastReceiver();
+        MulticastReceiver receiver = new MulticastReceiver(HOST_LOCATION);
         receiver.start();
         
-        NetworkPublisher publisher = new MulticastPublisher();
+        NetworkPublisher publisher = new MulticastPublisher(HOST_LOCATION);
         
         Queue<String> list = UserBuffer.getInstance();
         try {

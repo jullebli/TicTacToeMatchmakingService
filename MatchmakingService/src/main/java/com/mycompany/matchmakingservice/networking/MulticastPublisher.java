@@ -14,14 +14,19 @@ public class MulticastPublisher implements NetworkPublisher{
     private DatagramSocket socket;
     private InetAddress group;
     private byte[] buf;
+    private String defaultHost;
 
+    public MulticastPublisher(String defaultHost) {
+        this.defaultHost = defaultHost;
+    }
+    
     /**
      * Multicasts a message to a default IP address 230.0.0.0
      * @param multicastMessage
      * @throws IOException
      */
     public void multicast(String multicastMessage) throws IOException {
-        send(multicastMessage, "230.0.0.0");
+        send(multicastMessage, defaultHost);
     }
     
     @Override
