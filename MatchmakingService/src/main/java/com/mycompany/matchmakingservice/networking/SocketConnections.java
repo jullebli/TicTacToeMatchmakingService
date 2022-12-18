@@ -22,35 +22,32 @@ import java.util.logging.Logger;
  */
 public class SocketConnections {
 
-    private ServerSocket matchmakerSocket;
-    private ArrayList<String> clientIPs;
-
     public void start(int port) throws IOException {
         System.out.println("SocketConnections.start");
-        clientIPs = new ArrayList<>();
-        matchmakerSocket = new ServerSocket(port, 10, InetAddress.getByName("127.0.0.1"));
+        ServerSocket matchmakerSocket = new ServerSocket(port, 10, InetAddress.getByName("127.0.0.1"));
+        UserQueue userQueue = new UserQueue(2);
         while (true) {
-            new clientHandler(matchmakerSocket.accept()).start();
+            Socket clientSocket = matchmakerSocket.accept();
+            ClientHandler handler = new ClientHandler(clientSocket, userQueue);
+            handler.start();
         }
     }
 
-    public void addClientIP(String clientIP) {
-        clientIPs.add(clientIP);
-    }
+    //public void stop() throws IOException {
+    //    matchmakerSocket.close();
+    //}
 
-    public void stop() throws IOException {
-        matchmakerSocket.close();
-    }
-
-    private static class clientHandler extends Thread {
+    private static class ClientHandler extends Thread {
 
         private Socket clientSocket;
+        private UserQueue userBuffer;
         private PrintWriter out;
         private BufferedReader in;
-        private ServerSocket matchmakerSocket;
+        // private ServerSocket matchmakerSocket;
 
-        public clientHandler(Socket clientSocket) {
+        public ClientHandler(Socket clientSocket, UserQueue userBuffer) {
             this.clientSocket = clientSocket;
+            this.userBuffer = userBuffer;
             //this.matchmakerSocket = matchmakerSocket;
         }
 
@@ -67,14 +64,15 @@ public class SocketConnections {
                         sendMessage("bye");
                         break;
                     } else if (inputLine.equals("hello matchmaker")) {
+                        userBuffer.addClientSocket(clientSocket);
                         sendMessage("hello client");
-                        //UserBuffer.getInstance().add(received);
                     } else if (inputLine.equals("we are connected")) {
-                        //matchmakerSocket.addClientIP();
                         System.out.println("getRemoteSocketAddress: "
                                 + clientSocket.getRemoteSocketAddress().toString());
-                        //if ()
+                        String multicastIPAndPort = userBuffer.waitOrGiveMulticastAddress();
                         sendMessage("You can start game");
+                        sendMessage(multicastIPAndPort);
+                        break;
                     }
                 }
                 System.out.println("Server went out of while loop");
@@ -94,4 +92,29 @@ public class SocketConnections {
             //return response;
         }
     }
+    
+        
+ /*   
+    try {
+            while (RUNNING) {
+                if (list.size() >= GAME_SIZE) {
+                    try {
+                        String message = TARGET_LOCATION;
+                        for (int i = 0; i < GAME_SIZE; i++) {
+                            message += ";" + list.poll();
+                        }
+
+                        publisher.send(message, HOST_LOCATION);
+                        //here should send to every needed socket the multicastIP
+                        System.out.println("Sent game to " + TARGET_LOCATION);
+                    } catch (IOException e) {
+                        System.out.println(e);
+                    }
+                }
+                //    Thread.sleep(100);
+            }
+        } catch (InterruptedException e) {
+            System.out.println(e);
+        }
+*/
 }

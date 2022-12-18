@@ -31,7 +31,7 @@ public class MulticastReceiver extends Thread {
                 continue;
             }
             System.out.println(received);
-            UserBuffer.getInstance().add(received);
+            //UserBuffer.getInstance().add(received);
         }
         socket.leaveGroup(group);
         socket.close();
