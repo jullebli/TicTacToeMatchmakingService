@@ -7,8 +7,6 @@ package com.mycompany.matchmakingservice.networking;
 import java.net.Socket;
 import java.util.LinkedList;
 import java.util.Queue;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -40,7 +38,8 @@ public class UserQueue {
             System.out.println("not enough players");
             return;
         }
-        multicastAddress = "230.0.0.0:2000";
+        //multicastAddress = "224.0.2.50";
+        multicastAddress = "230.0.0.0";
         queue.remove();
         queue.remove();
         System.out.println("Removed and Notifying everyone");
