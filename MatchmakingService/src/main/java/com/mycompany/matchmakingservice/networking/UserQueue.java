@@ -38,14 +38,14 @@ public class UserQueue {
         queue.add(clientSocket);
         userHashes.add(generateUserHash());
 
-        if (queue.size() < 2) {
+        if (queue.size() < roomSize) {
             System.out.println("not enough players");
             return;
         }
         //multicastAddress = "224.0.2.50";
         multicastAddress = "230.0.0.0";
         // queue.remove(0);
-        // userHashes.remove(0);  FIX! CAN HANDLE ONLY FIRST GAME!
+        // userHashes.remove(0); CAN HANDLE ONLY FIRST GAME! FIX IF WANT MORE!
         // queue.remove(0);
         // userHashes.remove(0);
         System.out.println("Removed and Notifying everyone");

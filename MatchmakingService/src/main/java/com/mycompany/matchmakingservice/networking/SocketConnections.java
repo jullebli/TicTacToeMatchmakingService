@@ -19,7 +19,7 @@ public class SocketConnections {
     public void start(int port) throws IOException {
         System.out.println("SocketConnections.start");
         ServerSocket matchmakerSocket = new ServerSocket(port, 10, InetAddress.getByName("127.0.0.1"));
-        UserQueue userQueue = new UserQueue(2);
+        UserQueue userQueue = new UserQueue(3);
         while (true) {
             Socket clientSocket = matchmakerSocket.accept();
             ClientHandler handler = new ClientHandler(clientSocket, userQueue);
