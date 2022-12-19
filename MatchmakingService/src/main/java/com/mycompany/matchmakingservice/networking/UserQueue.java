@@ -25,12 +25,14 @@ public class UserQueue {
         this.roomSize = roomSize; //to be implemented
     }
 
-    //public static Queue<Socket> getInstance() {
-    //    if (instance == null) {
-    //        instance = new UserBuffer();
-    //    }
-    //    return instance.buffer;
-    //}
+   /*
+    public static Queue<Socket> getInstance() {
+        if (instance == null) {
+            instance = new UserBuffer();
+        }
+        return instance.buffer;
+    }
+*/
     public synchronized void addClientSocket(Socket clientSocket) {
         //Queue<Socket> queue = UserBuffer.getInstance();
         queue.add(clientSocket);
